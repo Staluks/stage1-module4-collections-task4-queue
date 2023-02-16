@@ -7,12 +7,8 @@ import java.util.PriorityQueue;
 public class PriorityQueueCreator {
     public PriorityQueue<String> createPriorityQueue(List<String> firstList, List<String> secondList) {
         PriorityQueue<String> sortedList = new PriorityQueue<>( new ListComparator());
-        for(String s: firstList){
-            sortedList.add(s);
-        }
-        for(String e : secondList){
-            sortedList.add(e);
-        }
+        sortedList.addAll(secondList);
+        sortedList.addAll(firstList);
         return sortedList;
     }
 class ListComparator implements Comparator<String>{
@@ -28,12 +24,14 @@ class ListComparator implements Comparator<String>{
         if(o2 == null){
             return 1;
         }
-        if (o1First==o2First) {
-            int count = 0;
-            String a = String.valueOf(o1.charAt(count));
-            String b = String.valueOf(o2.charAt(count));
+        int count = 0;
+        String a = String.valueOf(o1.charAt(count));
+        String b = String.valueOf(o2.charAt(count));
+        if (a.equals(b)) {
             while(a.equals(b)){
                 count++;
+                a = String.valueOf(o1.charAt(count));
+                b = String.valueOf(o2.charAt(count));
             }
             return b.compareTo(a);
         }
